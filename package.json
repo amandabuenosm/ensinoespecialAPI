@@ -1,0 +1,13 @@
+{
+  "name": "projeto1api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: sem teste específico\" && exit 1"
+  },
+  "keywords": [],
+  "dependencies": {
+    "cors": "^2.8.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  }
+}
