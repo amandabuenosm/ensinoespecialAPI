@@ -1,13 +1,13 @@
 // bibliotecas obrigatórias
 const express = require('express');
+const cors = require('cors');
 const swaggerjs = require('swagger-jsdoc');
 const swaggerexp = require('swagger-ui-express');
-const cors = require('cors');
-
-const rotaalunos = require('./rotas/alunos'); // importar a rota dos alunos
+const rotaalunos = require('./rotas/alunos');
 
 const app = express();
 app.use(cors());
+app.use(express.json()); 
 
 // configuração do Swagger
 const localswagger = {
