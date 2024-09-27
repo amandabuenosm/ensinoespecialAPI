@@ -131,12 +131,21 @@ rota.delete('/:id', (req, res) => {
 // documentação do Swagger para incluir as novas rotas
 /**
  * @swagger
+ * tags: 
+ *   name: Alunos
+ *   description: Gestão de alunos
+ */
+
+/**
+ * @swagger
  * /alunos:
  *   get:
- *     description: Listagem de alunos
+ *     tags: 
+ *       - Alunos
+ *     summary: Retorna uma lista de alunos
  *     responses:
  *       200:
- *         description: Lista de alunos
+ *         description: Lista de alunos.
  *         content:
  *           application/json:
  *             schema:
@@ -159,7 +168,9 @@ rota.delete('/:id', (req, res) => {
  *                   status:
  *                     type: string
  *   post:
- *     description: Criar um novo aluno
+ *     tags: 
+ *       - Alunos
+ *     summary: Criar um novo aluno
  *     requestBody:
  *       required: true
  *       content:
@@ -187,7 +198,9 @@ rota.delete('/:id', (req, res) => {
  *
  * /alunos/{id}:
  *   get:
- *     description: Retornar aluno por ID
+ *     tags: 
+ *       - Alunos
+ *     summary: Retornar aluno por ID
  *     parameters:
  *       - in: path
  *         name: id
@@ -201,7 +214,9 @@ rota.delete('/:id', (req, res) => {
  *       404:
  *         description: Aluno não encontrado
  *   put:
- *     description: Atualiza um aluno por ID
+ *     tags: 
+ *       - Alunos
+ *     summary: Atualiza um aluno por ID
  *     parameters:
  *       - in: path
  *         name: id
@@ -221,7 +236,9 @@ rota.delete('/:id', (req, res) => {
  *       404:
  *         description: Aluno não encontrado
  *   delete:
- *     description: Deleta aluno por ID
+ *     tags: 
+ *       - Alunos
+ *     summary: Deleta aluno por ID
  *     parameters:
  *       - in: path
  *         name: id
