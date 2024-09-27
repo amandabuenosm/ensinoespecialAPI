@@ -7,7 +7,7 @@ const swaggerexp = require('swagger-ui-express');
 // importação das rotas
 const rotaalunos = require('./rotas/alunos');
 const rotaprofissionais = require('./rotas/profissional');
-const rotausuarios = require('.rotas/usuarios');
+const rotausuarios = require('./rotas/usuarios');
 
 const app = express();
 app.use(cors());
@@ -22,8 +22,8 @@ const localswagger = {
       version: '1.0.0',
       description: 'API para gerenciamento de professores, alunos, eventos, agendamentos de saúde e mais.',
       servers: {
-          url: 'http://localhost:8080',
-        },
+        url: 'http://localhost:8080',
+      },
     },
   },
   apis: ['./rotas/alunos.js', './rotas/profissional.js', './rotas/usuarios'],
