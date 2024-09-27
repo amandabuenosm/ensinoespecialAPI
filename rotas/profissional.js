@@ -1,18 +1,151 @@
-// bibliotecas obrigatórias para a rota
 const express = require('express');
 const rota = express.Router();
 const fs = require('fs');
-const run = require('path');
+const path = require('path');
 
-// docuentação do swagger (deve conter os tipos de dados usados)
+const localarq = path.join(__dirname, '../db/profissional.json'); 
+
+// leitura e escrita do arquivo
+const leitura = (callback) => {
+  fs.readFile(localarq, 'utf8', (erro, dados) => {
+    if (erro) {
+      console.error('Erro ao tentar ler o arquivo:', erro); 
+      return callback(erro);
+    }
+    try {
+      const profissional = JSON.parse(dados);
+      callback(null, profissional);
+    } catch (erro) {
+      console.error('Erro ao parsear o arquivo JSON:', erro);
+      callback(erro);
+    }
+  });
+};
+
+const escrita = (dados, callback) => {
+  fs.writeFile(localarq, JSON.stringify(dados, null, 2), (erro) => {
+    if (erro) {
+      return callback(erro);
+    }
+    callback(null);
+  });
+};
+
+// obter dados dos profissionais
+rota.get('/', (_req, res) => {
+  leitura((erro, listaprofissionais) => {
+    if (erro) {
+      return res.status(500).json({ message: 'Erro na leitura dos dados dos profissionais.' });
+    }
+    res.status(200).json(listaprofissionais);
+  });
+});
+
+// obter profissionais por ID
+rota.get('/:id', (req, res) => {
+  const id = req.params.id;
+  leitura((erro, listaprofissionais) => {
+    if (erro) {
+      return res.status(500).json({ message: 'Erro na leitura dos dados dos profissionais.' });
+    }
+    const profissional = listaprofissionais.find(a => a.id === id);
+    if (!profissional) {
+      return res.status(404).json({ message: 'Profissional não encontrado' });
+    }
+    res.status(200).json(profissional);
+  });
+});
+
+// criar um profissional
+rota.post('/', (req, res) => {
+  const novoprofissional = req.body;
+  if (!novoprofissional) {
+    return res.status(400).json({ message: 'Dados inválidos para inclusão!' });
+  }
+
+  leitura((erro, listaprofissionais) => {
+    if (erro) {
+      return res.status(500).json({ message: 'Erro na leitura dos dados dos profissionais.' });
+    }
+    
+    // Verifique se a lista de profissionais está definida corretamente
+    if (!Array.isArray(listaprofissionais)) {
+      return res.status(500).json({ message: 'Formato inválido para arquivo JSON dos profissionais.' });
+    }
+
+    novoprofissional.id = String(Date.now());  // Gera um novo ID para o profissional
+    listaprofissionais.push(novoprofissional);
+
+    escrita(listaprofissionais, (erro) => {
+      if (erro) {
+        return res.status(500).json({ message: 'Erro ao gravar dados do novo profissional.' });
+      }
+      res.status(201).json(novoprofissional);
+    });
+  });
+});
+
+// atualizar profissionais por ID
+rota.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const atualizados = req.body;
+  leitura((erro, listaprofissionais) => {
+    if (erro) {
+      return res.status(500).json({ message: 'Erro na leitura dos dados dos profissionais.' });
+    }
+    const index = listaprofissionais.findIndex(a => a.id === id);
+    if (index === -1) {
+      return res.status(404).json({ message: 'Profissional não encontrado' });
+    }
+    listaprofissionais[index] = { ...listaprofissionais[index], ...atualizados };
+    escrita(listaprofissionais, (erro) => {
+      if (erro) {
+        return res.status(500).json({ message: 'Erro ao atualizar profissional.' });
+      }
+      res.status(200).json(listaprofissionais[index]);
+    });
+  });
+});
+
+// deletar um profissional por ID
+rota.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  leitura((erro, listaprofissionais) => {
+    if (erro) {
+      return res.status(500).json({ message: 'Erro na leitura dos dados dos profissionais.' });
+    }
+    const index = listaprofissionais.findIndex(a => a.id === id);
+    if (index === -1) {
+      return res.status(404).json({ message: 'Profissional não encontrado' });
+    }
+    listaprofissionais.splice(index, 1);
+    escrita(listaprofissionais, (erro) => {
+      if (erro) {
+        return res.status(500).json({ message: 'Erro ao excluir profissional.' });
+      }
+      res.status(204).send(); 
+    });
+  });
+});
+
+// documentação do Swagger para incluir as novas rotas
 /**
  * @swagger
- * /profissional:
+ * tags: 
+ *   name: Profissionais
+ *   description: Gestão de profissionais
+ */
+
+/**
+ * @swagger
+ * /profissionais:
  *   get:
- *     description: Documentação dos profissionais de saúde
+ *     tags: 
+ *       - Profissionais
+ *     summary: Retorna uma lista de profissionais
  *     responses:
  *       200:
- *         description: Lista de profissionais de saúde
+ *         description: Lista de profissionais
  *         content:
  *           application/json:
  *             schema:
@@ -34,25 +167,90 @@ const run = require('path');
  *                     type: number
  *                   status:
  *                     type: string
+ *   post:
+ *     tags: 
+ *       - Profissionais
+ *     summary: Criar um novo profissional
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id: 
+ *                   id: 
+ *                     type: number
+ *                   nome:
+ *                     type: string
+ *                   especialidade:
+ *                     type: string
+ *                   NRP:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   telefone:
+ *                     type: number
+ *                   status:
+ *                     type: string
+ *     responses:
+ *       201:
+ *         description: Profissional criado
+ * /profissional/{id}:
+ *   get:
+ *     tags: 
+ *       - Profissionais
+ *     summary: Retornar profissional por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do profissional
+ *     responses:
+ *       200:
+ *         description: Profissional encontrado
+ *       404:
+ *         description: Profissional não encontrado
+ *   put:
+ *     tags: 
+ *       - Profissionais
+ *     summary: Atualiza um profissional por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do profissional
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Profissional atualizado
+ *       404:
+ *         description: Profissional não encontrado
+ *   delete:
+ *     tags: 
+ *       - Profissionais
+ *     summary: Deleta profissional por ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID do profissional
+ *     responses:
+ *       204:
+ *         description: Profissional deletado
+ *       404:
+ *         description: Profissional não encontrado
  */
-rota.get('/', (_req, res) => {
-
-  const localarq = run.join(__dirname, '../db/profissional.json'); // localização do arquivo com os dados
-
-  fs.readFile(localarq, 'utf8', (erroleitura, dados) => { // faz a leitura do arquivo json
-    if (erroleitura) { // se houver problemas, retorna a resposta de erro e a mensagem 
-      console.error('Erro ao fazer a leitura do arquivo dos profissionais:', erroleitura);
-      return res.status(500).json({ message: 'Erro ao ler arquivo dos dados de profissionais!' });
-    }
-
-    try {
-      const listaprofissional = JSON.parse(dados); // converte os dados do arquivo em json e armazena em outra variável
-      res.status(200).json(listaprofissional);
-    } catch (erroprocesso) { // caso haja problema na conversão e no processamento dos dados, retorna um erro
-      console.error('Erro ao fazer análise do arquivo JSON:', erroprocesso);
-      res.status(500).json({ message: 'Erro ao reprocessar dados do arquivo de profissionais.json!' });
-    }
-  });
-});
 
 module.exports = rota;
