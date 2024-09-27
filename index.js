@@ -32,7 +32,7 @@ const localswagger = {
 const swaggerconfig = swaggerjs(localswagger);
 app.use('/api-docs', swaggerexp.serve, swaggerexp.setup(swaggerconfig));
 app.use('/alunos', rotaalunos);
-app.use('/rotas', rotaprofissionais);
+app.use('/profissionais', rotaprofissionais);
 app.listen(8080, () => {
   console.log('Servidor rodando em http://localhost:8080');
 });
