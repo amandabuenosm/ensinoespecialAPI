@@ -3,7 +3,10 @@ const express = require('express');
 const cors = require('cors');
 const swaggerjs = require('swagger-jsdoc');
 const swaggerexp = require('swagger-ui-express');
+
+// importação das rotas
 const rotaalunos = require('./rotas/alunos');
+const rotaprofissionais = require('./rotas/profissional');
 
 const app = express();
 app.use(cors());
@@ -22,13 +25,14 @@ const localswagger = {
         },
     },
   },
-  apis: ['./rotas/alunos.js'],
+  apis: ['./rotas/alunos.js', './rotas/profissional.js'],
 };
 
 // configuração do localhost
 const swaggerconfig = swaggerjs(localswagger);
 app.use('/api-docs', swaggerexp.serve, swaggerexp.setup(swaggerconfig));
 app.use('/alunos', rotaalunos);
+app.use('/rotas', rotaprofissionais);
 app.listen(8080, () => {
   console.log('Servidor rodando em http://localhost:8080');
 });
