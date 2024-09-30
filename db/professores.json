@@ -1,0 +1,18 @@
+[
+    {
+        "id":"2102",
+        "nome":"Marcela Ferreira",
+        "disciplina":"Língua Portuguesa",
+        "email":"mar.ferreira@gmail",
+        "telefone":"48 99654 6032",
+        "status": "on"
+    },
+    {
+        "id":"7041",
+        "nome":"Pedro Soares",
+        "disciplina":"Educação Física",
+        "email":"pedro.soares@gmail",
+        "telefone":"48 99347 9021",
+        "status": "on"
+    }
+]
