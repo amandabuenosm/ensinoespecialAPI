@@ -6,8 +6,9 @@ const swaggerexp = require('swagger-ui-express');
 
 // importação das rotas
 const rotaalunos = require('./rotas/alunos');
-const rotaprofissionais = require('./rotas/profissional');
 const rotaagendamentos = require('./rotas/agendamentos');
+const rotaeventos = require('./rotas/eventos');
+const rotaprofessores = require('./rotas/professores');
 
 const app = express();
 app.use(cors());
@@ -26,15 +27,16 @@ const localswagger = {
         },
     },
   },
-  apis: ['./rotas/alunos.js', './rotas/profissional.js', './rotas/agendamentos.js'],
+  apis: ['./rotas/alunos.js', './rotas/agendamentos.js', './rotas/eventos.js', './rotas/professores.js'],
 };
 
 // configuração do localhost
 const swaggerconfig = swaggerjs(localswagger);
 app.use('/api-docs', swaggerexp.serve, swaggerexp.setup(swaggerconfig));
 app.use('/alunos', rotaalunos);
-app.use('/profissionais', rotaprofissionais);
 app.use('/agendamentos', rotaagendamentos);
+app.use('/eventos', rotaeventos);
+app.use('/professores', rotaprofessores);
 app.listen(8080, () => {
   console.log('Servidor rodando em http://localhost:8080');
 });
