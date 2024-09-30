@@ -73,7 +73,7 @@ rota.post('/', (req, res) => {
         return res.status(500).json({ message: 'Formato inválido para arquivo JSON dos agendamentos.' });
       }
   
-      novoagendamento.id = String(Date.now());  // Gera um novo ID para o aluno
+      novoagendamento.id = String(Date.now());  // gerar um novo ID para o agendamento
       agendalist.push(novoagendamento);
   
       escrita(agendalist, (erro) => {
