@@ -131,9 +131,30 @@ rota.delete('/:id', (req, res) => {
 // documentação do Swagger para incluir as novas rotas
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     aluno:
+ *       type: object
+ *       required:
+ *         - id
+ *         - nome
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: XDXDXDXD
+ *         nome:
+ *           type: string
+ *           description: Nome do Aluno
+  *       example:
+ *         id: 6314
+ *         nome: Julia Ferreiro de Oliveira
+ */
+
+/**
+ * @swagger
  * tags: 
  *   name: Alunos
- *   description: Gestão de alunos
+ *   description: Gestão de alunos, por Amanda Gabrieli Bueno
  */
 
 /**
@@ -151,22 +172,7 @@ rota.delete('/:id', (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id: 
- *                     type: number
- *                   nome:
- *                     type: string
- *                   idade:
- *                     type: number
- *                   pais:
- *                     type: string
- *                   telefone:
- *                     type: number
- *                   necessidade:
- *                     type: string
- *                   status:
- *                     type: string
+ *                 $ref: '#/components/schemas/aluno'
  *   post:
  *     tags: 
  *       - Alunos
@@ -176,25 +182,14 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               id: 
- *                 type: number
- *               nome:
- *                 type: string
- *               idade:
- *                 type: number
- *               pais:
- *                 type: string
- *               telefone:
- *                 type: number
- *               necessidade:
- *                 type: string
- *               status:
- *                 type: string
+ *             $ref: '#/components/schemas/aluno'
  *     responses:
  *       201:
  *         description: Aluno criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/aluno'
  *
  * /alunos/{id}:
  *   get:
@@ -211,6 +206,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Aluno encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/aluno'
  *       404:
  *         description: Aluno não encontrado
  *   put:
@@ -229,10 +228,10 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/aluno'
  *     responses:
  *       200:
- *         description: Aluno atualizado
+ *         description: Aluno 
  *       404:
  *         description: Aluno não encontrado
  *   delete:
@@ -249,6 +248,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       204:
  *         description: Aluno deletado
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/aluno'
  *       404:
  *         description: Aluno não encontrado
  */
