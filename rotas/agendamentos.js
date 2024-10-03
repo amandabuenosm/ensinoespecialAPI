@@ -131,9 +131,30 @@ rota.delete('/:id', (req, res) => {
 // documentação do Swagger para incluir as novas rotas
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     agendamento:
+ *       type: object
+ *       required:
+ *         - id
+ *         - especialista
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: ID do agendamento
+ *         especialista:
+ *           type: string
+ *           description: Descrição do especialista
+ *       example:
+ *         id: 174452
+ *         especialista: Fabiana Nunes
+ */
+
+/**
+ * @swagger
  * tags: 
  *   name: Agendamentos
- *   description: Gestão de agendamentos
+ *   description: Gestão de agendamentos, por Amanda Gabrieli Bueno
  */
 /**
  * @swagger
@@ -150,20 +171,7 @@ rota.delete('/:id', (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id: 
- *                     type: number
- *                   especialista:
- *                     type: string
- *                   descricao:
- *                     type: string
- *                   data:
- *                     type: number
- *                   aluno:
- *                     type: string
- *                   profissional:
- *                     type: string
+ *                 $ref: '#/components/schemas/agendamento'
  *   post:
  *     tags: 
  *       - Agendamentos
@@ -173,23 +181,14 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *                   id: 
- *                     type: number
- *                   especialista:
- *                     type: string
- *                   descricao:
- *                     type: string
- *                   data:
- *                     type: number
- *                   aluno:
- *                     type: string
- *                   profissional:
- *                     type: string
+ *             $ref: '#/components/schemas/agendamento'
  *     responses:
  *       201:
  *         description: Agendamento criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/agendamento'
  *
  * /agendamentos/{id}:
  *   get:
@@ -206,6 +205,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Agendamento encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/agendamento'
  *       404:
  *         description: Agendamento não encontrado
  *   put:
@@ -224,10 +227,10 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/agendamento'
  *     responses:
  *       200:
- *         description: Agendamento atualizado
+ *         description: Agendamento encontrado
  *       404:
  *         description: Agendamento não encontrado
  *   delete:
@@ -244,6 +247,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       204:
  *         description: Agendamento deletado
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/agendamento'
  *       404:
  *         description: Agendamento não encontrado
  */
