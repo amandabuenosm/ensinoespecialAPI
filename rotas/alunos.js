@@ -145,9 +145,13 @@ rota.delete('/:id', (req, res) => {
  *         nome:
  *           type: string
  *           description: Nome do Aluno
+ *         necessidade:
+ *           type: string
+ *           description: Necessidade do Aluno
  *       example:
  *         id: 6314
  *         nome: Julia Ferreiro de Oliveira
+ *         necessidade: Síndrome de Tourette
  */
 
 /**
@@ -231,7 +235,7 @@ rota.delete('/:id', (req, res) => {
  *             $ref: '#/components/schemas/aluno'
  *     responses:
  *       200:
- *         description: Aluno encontrado
+ *         description: Aluno atualizado
  *       404:
  *         description: Aluno não encontrado
  *   delete:
