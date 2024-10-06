@@ -145,9 +145,13 @@ rota.delete('/:id', (req, res) => {
  *         especialista:
  *           type: string
  *           description: Descrição do especialista
+ *         profissional:
+ *           type: string
+ *           description: Nome do especialista
  *       example:
  *         id: 174452
- *         especialista: Fabiana Nunes
+ *         especialista: Psicólogo
+ *         profissional: Fabiana Nunes
  */
 
 /**
