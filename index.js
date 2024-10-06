@@ -9,7 +9,7 @@ const rotaalunos = require('./rotas/alunos');
 const rotaagendamentos = require('./rotas/agendamentos');
 const rotaeventos = require('./rotas/eventos');
 const rotaprofessores = require('./rotas/professores');
-const rotaprofissionais = require('./rotas/profissional');
+const rotaprofissionais = require('./rotas/profissionais');
 const rotausuarios = require('./rotas/usuarios');
 
 const app = express();
@@ -29,7 +29,7 @@ const localswagger = {
       },
     },
   },
-  apis: ['./rotas/alunos.js', './rotas/agendamentos.js', './rotas/eventos.js', './rotas/professores.js', './rotas/profissional.js', './rotas/usuarios.js'],
+  apis: ['./rotas/alunos.js', './rotas/agendamentos.js', './rotas/eventos.js', './rotas/professores.js', './rotas/profissionais.js', './rotas/usuarios.js'],
 };
 
 // configuração do localhost
@@ -39,7 +39,7 @@ app.use('/alunos', rotaalunos);
 app.use('/agendamentos', rotaagendamentos);
 app.use('/eventos', rotaeventos);
 app.use('/professores', rotaprofessores);
-app.use('/profissional', rotaprofissionais);
+app.use('/profissionais', rotaprofissionais);
 app.use('/usuarios', rotausuarios);
 
 app.listen(8080, () => {
