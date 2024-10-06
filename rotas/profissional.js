@@ -129,11 +129,37 @@ rota.delete('/:id', (req, res) => {
 });
 
 // documentação do Swagger para incluir as novas rotas
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     profissional:
+ *       type: object
+ *       required:
+ *         - id
+ *         - nome
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: ID do profissional
+ *         nome:
+ *           type: string
+ *           description: Nome do profissional
+ *         especialidade:
+ *           type: string
+ *           description: Especialidade do profissional
+ *       example:
+ *         id: 4807
+ *         nome: Paulo Marcelo de Farias
+ *         especialidade: Médico
+ */
+
 /**
  * @swagger
  * tags: 
  *   name: Profissionais
- *   description: Gestão de profissionais
+ *   description: Gestão de profissionais, por Kauã Tereza de Oliveira
  */
 
 /**
@@ -151,22 +177,7 @@ rota.delete('/:id', (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id: 
- *                     type: number
- *                   nome:
- *                     type: string
- *                   especialidade:
- *                     type: string
- *                   NRP:
- *                     type: string
- *                   email:
- *                     type: string
- *                   telefone:
- *                     type: number
- *                   status:
- *                     type: string
+ *                 $ref: '#/components/schemas/profissional'
  *   post:
  *     tags: 
  *       - Profissionais
@@ -176,26 +187,14 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               id: 
- *                   id: 
- *                     type: number
- *                   nome:
- *                     type: string
- *                   especialidade:
- *                     type: string
- *                   NRP:
- *                     type: string
- *                   email:
- *                     type: string
- *                   telefone:
- *                     type: number
- *                   status:
- *                     type: string
+ *             $ref: '#/components/schemas/profissional'
  *     responses:
  *       201:
  *         description: Profissional criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/profissional'
  * /profissional/{id}:
  *   get:
  *     tags: 
@@ -211,6 +210,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Profissional encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/profissional'
  *       404:
  *         description: Profissional não encontrado
  *   put:
@@ -229,7 +232,7 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/profissional'
  *     responses:
  *       200:
  *         description: Profissional atualizado
@@ -249,6 +252,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       204:
  *         description: Profissional deletado
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/profissional'
  *       404:
  *         description: Profissional não encontrado
  */
