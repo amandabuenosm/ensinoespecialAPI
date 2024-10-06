@@ -51,7 +51,7 @@ rota.get('/:id', (req, res) => {
         if (!usuario) {
         return res.status(404).json({ message: 'usuario não encontrado' });
     }
-    res.status(200).json(aluno);
+    res.status(200).json(Usuário);
     });
 });
 
@@ -128,11 +128,37 @@ rota.delete('/:id', (req, res) => {
 });
 
 // documentação do Swagger para incluir as novas rotas
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     usuario:
+ *       type: object
+ *       required:
+ *         - id
+ *         - nome
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: ID do Usuário
+ *         nome:
+ *           type: string
+ *           description: Nome do Usuário
+ *         usuario: 
+ *           type: string
+ *           description: Login do Usuário
+ *       example:
+ *         id: 7041
+ *         nome: Pedro Soares
+ *         usuario: PSoares21
+ */
+
 /**
  * @swagger
  * tags: 
- *   name: usuarios
- *   description: Gestão de usuarios
+ *   name: Usuários
+ *   description: Gestão de usuários, por Airon Batista Furlanetto
  */
 
 /**
@@ -140,66 +166,40 @@ rota.delete('/:id', (req, res) => {
  * /usuarios:
  *   get:
  *     tags: 
- *       - usuarios
- *     summary: Retorna uma lista de usuarios
+ *       - Usuários
+ *     summary: Retorna uma lista de usuários
  *     responses:
  *       200:
- *         description: Lista de usuarios.
+ *         description: Lista de usuários.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id: 
- *                     type: number
- *                   nome:
- *                     type: string
- *                   email:
- *                     type: string
- *                   usuario:
- *                     type: string
- *                   senha:
- *                     type: string
- *                   nivel:
- *                     type: string
- *                   status:
- *                     type: string
+ *                 $ref: '#/components/schemas/usuario'
  *   post:
  *     tags: 
- *       - usuarios
- *     summary: Criar um novo usuario
+ *       - Usuários
+ *     summary: Criar um novo usuário
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               id: 
- *                 type: number
- *               nome:
- *                 type: string
- *               email:
- *                 type: string
- *               usuario:
- *                 type: string
- *               senha:
- *                 type: string
- *               nivel:
- *                 type: string
- *               status:
- *                 type: string
+ *             $ref: '#/components/schemas/usuario'
  *     responses:
  *       201:
- *         description: usuario criado
+ *         description: Usuário criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/usuario'
  *
  * /usuarios/{id}:
  *   get:
  *     tags: 
- *       - usuarios
- *     summary: Retornar usuario por ID
+ *       - Usuários
+ *     summary: Retornar usuário por ID
  *     parameters:
  *       - in: path
  *         name: id
@@ -209,47 +209,55 @@ rota.delete('/:id', (req, res) => {
  *         description: ID do usuario
  *     responses:
  *       200:
- *         description: usuario encontrado
+ *         description: Usuário encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/usuario'
  *       404:
- *         description: usuario não encontrado
+ *         description: Usuário não encontrado
  *   put:
  *     tags: 
- *       - usuarios
- *     summary: Atualiza um usuario por ID
+ *       - Usuários
+ *     summary: Atualiza um usuário por ID
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do usuario
+ *         description: ID do usuário
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/usuario'
  *     responses:
  *       200:
- *         description: usuario atualizado
+ *         description: Usuário atualizado
  *       404:
- *         description: usuario não encontrado
+ *         description: Usuário não encontrado
  *   delete:
  *     tags: 
- *       - usuarios
- *     summary: Deleta usuario por ID
+ *       - Usuários
+ *     summary: Deleta usuário por ID
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
  *         schema:
  *           type: string
- *         description: ID do usuario
+ *         description: ID do usuário
  *     responses:
  *       204:
- *         description: usuario deletado
+ *         description: Usuário deletado
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/usuario'
  *       404:
- *         description: usuario não encontrado
+ *         description: Usuário não encontrado
  */
 
 module.exports = rota;
