@@ -162,7 +162,7 @@ rota.delete('/:id', (req, res) => {
  */
 /**
  * @swagger
- * /agenda:
+ * /agendamentos:
  *   get:
  *     tags: 
  *       - Agendamentos
