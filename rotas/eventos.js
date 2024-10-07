@@ -129,11 +129,33 @@ rota.delete('/:id', (req, res) => {
 });
 
 // documentação do Swagger para incluir as novas rotas
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     evento:
+ *       type: object
+ *       required:
+ *         - id
+ *         - descricao
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: ID do Evento
+ *         descricao:
+ *           type: string
+ *           description: Descrição do Evento
+ *       example:
+ *         id: 9678
+ *         descricao: Palestra de Bem-Estar Mental
+ */
+
 /**
  * @swagger
  * tags: 
  *   name: Eventos
- *   description: Gestão de eventos
+ *   description: Gestão de eventos, por Vitória Maria Serafim Bernardo
  */
 
 /**
@@ -151,16 +173,7 @@ rota.delete('/:id', (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id: 
- *                     type: number
- *                   descricao:
- *                     type: string
- *                   comentarios:
- *                     type: string
- *                   data:
- *                     type: number
+ *                 $ref: '#/components/schemas/evento'
  *   post:
  *     tags: 
  *       - Eventos
@@ -170,19 +183,14 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *                   id: 
- *                     type: number
- *                   descricao:
- *                     type: string
- *                   comentarios:
- *                     type: string
- *                   data:
- *                     type: number
+ *             $ref: '#/components/schemas/evento'
  *     responses:
  *       201:
  *         description: Evento criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/evento'
  *
  * /eventos/{id}:
  *   get:
@@ -199,6 +207,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Evento encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/evento'
  *       404:
  *         description: Evento não encontrado
  *   put:
@@ -217,7 +229,7 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/evento'
  *     responses:
  *       200:
  *         description: Evento atualizado
@@ -228,7 +240,7 @@ rota.delete('/:id', (req, res) => {
  *       - Eventos
  *     summary: Deleta evento por ID
  *     parameters:
- *       - in: path 
+ *       - in: path
  *         name: id
  *         required: true
  *         schema:
@@ -237,6 +249,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       204:
  *         description: Evento deletado
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/evento'
  *       404:
  *         description: Evento não encontrado
  */
