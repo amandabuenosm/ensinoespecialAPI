@@ -51,7 +51,7 @@ rota.get('/:id', (req, res) => {
         if (!usuario) {
         return res.status(404).json({ message: 'usuario não encontrado' });
     }
-    res.status(200).json(Usuário);
+    res.status(200).json(usuario);
     });
 });
 
