@@ -129,11 +129,37 @@ rota.delete('/:id', (req, res) => {
 });
 
 // documentação do Swagger para incluir as novas rotas
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     professor:
+ *       type: object
+ *       required:
+ *         - id
+ *         - nome
+ *       properties:
+ *         id:
+ *           type: number
+ *           description: ID do professor
+ *         nome:
+ *           type: string
+ *           description: Nome do professor
+ *         disciplina:
+ *           type: string
+ *           description: Disciplina do professor
+ *       example:
+ *         id: 2102
+ *         nome: Marcela Ferreira
+ *         disciplina: Língua Portuguesa
+ */
+
 /**
  * @swagger
  * tags: 
  *   name: Professores
- *   description: Gestão de professores
+ *   description: Gestão de professores, por Kauany Paulino Francisco
  */
 
 /**
@@ -151,46 +177,23 @@ rota.delete('/:id', (req, res) => {
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id: 
- *                     type: number
- *                   nome:
- *                     type: string
- *                   disciplina:
- *                     type: string
- *                   email:
- *                     type: string
- *                   telefone:
- *                     type: number
- *                   status:
- *                     type: string
+ *                 $ref: '#/components/schemas/professor'
  *   post:
  *     tags: 
  *       - Professores
  *     summary: Criar um novo professor
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *                   id: 
- *                     type: number
- *                   nome:
- *                     type: string
- *                   disciplina:
- *                     type: string
- *                   email:
- *                     type: string
- *                   telefone:
- *                     type: number
- *                   status:
- *                     type: string
+ *             $ref: '#/components/schemas/professor'
  *     responses:
  *       201:
  *         description: Professor criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/professor'
  *
  * /professores/{id}:
  *   get:
@@ -207,6 +210,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       200:
  *         description: Professor encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/professor'
  *       404:
  *         description: Professor não encontrado
  *   put:
@@ -225,7 +232,7 @@ rota.delete('/:id', (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             type: object
+ *             $ref: '#/components/schemas/professor'
  *     responses:
  *       200:
  *         description: Professor atualizado
@@ -245,6 +252,10 @@ rota.delete('/:id', (req, res) => {
  *     responses:
  *       204:
  *         description: Professor deletado
+ *         content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/professor'
  *       404:
  *         description: Professor não encontrado
  */
