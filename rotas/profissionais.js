@@ -73,7 +73,7 @@ rota.post('/', (req, res) => {
       return res.status(500).json({ message: 'Formato inválido para arquivo JSON dos profissionais.' });
     }
 
-    novoprofissionais.id = String(Date.now());  // Gera um novo ID para o profissional
+    novoprofissionais.id = String(Date.now()); 
     listaprofissionais.push(novoprofissionais);
 
     escrita(listaprofissionais, (erro) => {
