@@ -73,7 +73,7 @@ rota.post('/', (req, res) => {
         return res.status(500).json({ message: 'Formato inválido para arquivo JSON dos eventos.' });
       }
   
-      novoevento.id = String(Date.now());  // gerar um novo ID para o evento
+      novoevento.id = String(Date.now()); 
       eventoslist.push(novoevento);
   
       escrita(eventoslist, (erro) => {
