@@ -2,7 +2,7 @@ const express = require('express');
 const rota = express.Router();
 const fs = require('fs');
 const path = require('path');
-const localarq = path.join(__dirname, '../db/usuarios.json');// rota do json de usuarios
+const localarq = path.join(__dirname, '../db/usuarios.json');
 
 // leitura e escrita do arquivo
 const leitura = (callback) => {
@@ -72,7 +72,7 @@ rota.post('/', (req, res) => {
             return res.status(500).json({ message: 'Formato inválido para arquivo JSON dos usuarios.' });
         }
 
-        novousuario.id = String(Date.now());  // Gera um novo ID para o usuario
+        novousuario.id = String(Date.now());
         usuarioslist.push(novousuario);
 
         escrita(usuarioslist, (erro) => {
