@@ -3,7 +3,7 @@ const rota = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-const localarq = path.join(__dirname, '../db/agenda.json');
+const localarq = path.join(__dirname, '../db/agendamentos.json');
 
 // leitura e escrita do arquivo
 const leitura = (callback) => {
