@@ -73,7 +73,7 @@ rota.post('/', (req, res) => {
       return res.status(500).json({ message: 'Formato inválido para arquivo JSON dos alunos.' });
     }
 
-    novoaluno.id = String(Date.now());  // Gera um novo ID para o aluno
+    novoaluno.id = String(Date.now());  
     alunoslist.push(novoaluno);
 
     escrita(alunoslist, (erro) => {
