@@ -17,25 +17,5 @@
         "senha": "P@9347",
         "nivel": "admin",
         "status": "on"
-    },
-
-    {
-        "id": "6314",
-        "nome": "Julia Ferreiro de Oliveira",
-        "email": "JuOliveira@gmail.com",
-        "usuario": "Julia0li",
-        "senha": "J@9248",
-        "nivel": "user",
-        "status": "on"
-    },
-
-    {
-        "id": "2958",
-        "nome": "Luciano Rezende Fernandes",
-        "email": "LuciFer999@gmailcom",
-        "usuario": "LuciFer6",
-        "senha": "L@9581",
-        "nivel": "user",
-        "status": "on"
     }
 ]
